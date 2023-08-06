@@ -1,4 +1,4 @@
-<div class="m-3">
+<div class="content">
     @can('project_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
@@ -8,112 +8,119 @@
             </div>
         </div>
     @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.project.title_singular') }} {{ trans('global.list') }}
-        </div>
+    <div class="row">
+        <div class="col-lg-12">
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-statusProjects">
-                    <thead>
-                        <tr>
-                            <th width="10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.project.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.id') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.tarih') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.status') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.projectStatus.fields.name') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.start_date') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.budget') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.name') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.client') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.description') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($projects as $key => $project)
-                            <tr data-entry-id="{{ $project->id }}">
-                                <td>
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-statusProjects">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-                                </td>
-                                <td>
-                                    {{ $project->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->tarih ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->status->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->status->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->start_date ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->budget ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->client->first_name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->description ?? '' }}
-                                </td>
-                                <td>
-                                    @can('project_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.projects.show', $project->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.project.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.project.fields.tarih') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.project.fields.status') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.projectStatus.fields.name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.project.fields.start_date') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.project.fields.budget') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.project.fields.name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.project.fields.client') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.project.fields.description') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($projects as $key => $project)
+                                    <tr data-entry-id="{{ $project->id }}">
+                                        <td>
 
-                                    @can('project_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.projects.edit', $project->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
+                                        </td>
+                                        <td>
+                                            {{ $project->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $project->tarih ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $project->status->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $project->status->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $project->start_date ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $project->budget ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $project->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $project->client->first_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $project->description ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('project_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.projects.show', $project->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                                    @can('project_delete')
-                                        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
+                                            @can('project_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.projects.edit', $project->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                </td>
+                                            @can('project_delete')
+                                                <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
 </div>

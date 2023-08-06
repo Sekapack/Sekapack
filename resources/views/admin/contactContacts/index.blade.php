@@ -1,111 +1,116 @@
 @extends('layouts.admin')
 @section('content')
-@can('contact_contact_create')
-    <div style="margin-bottom: 10px;" class="row">
+<div class="content">
+    @can('contact_contact_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route('admin.contact-contacts.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.contactContact.title_singular') }}
+                </a>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'ContactContact', 'route' => 'admin.contact-contacts.parseCsvImport'])
+            </div>
+        </div>
+    @endcan
+    <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.contact-contacts.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.contactContact.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'ContactContact', 'route' => 'admin.contact-contacts.parseCsvImport'])
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.contactContact.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-ContactContact">
+                        <thead>
+                            <tr>
+                                <th width="10">
+
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactContact.fields.id') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactContact.fields.company') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactCompany.fields.company_email') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactContact.fields.contact_first_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactContact.fields.contact_last_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactContact.fields.contact_phone_1') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactContact.fields.contact_phone_2') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactContact.fields.contact_email') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactContact.fields.contact_skype') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.contactContact.fields.contact_address') }}
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <select class="search">
+                                        <option value>{{ trans('global.all') }}</option>
+                                        @foreach($contact_companies as $key => $item)
+                                            <option value="{{ $item->company_name }}">{{ $item->company_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.contactContact.title_singular') }} {{ trans('global.list') }}
-    </div>
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-ContactContact">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactContact.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactContact.fields.company') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactCompany.fields.company_email') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactContact.fields.contact_first_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactContact.fields.contact_last_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactContact.fields.contact_phone_1') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactContact.fields.contact_phone_2') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactContact.fields.contact_email') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactContact.fields.contact_skype') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.contactContact.fields.contact_address') }}
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($contact_companies as $key => $item)
-                                <option value="{{ $item->company_name }}">{{ $item->company_name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </thead>
-        </table>
-    </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

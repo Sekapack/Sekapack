@@ -1,136 +1,141 @@
 @extends('layouts.admin')
 @section('content')
-@can('client_create')
-    <div style="margin-bottom: 10px;" class="row">
+<div class="content">
+    @can('client_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route('admin.clients.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.client.title_singular') }}
+                </a>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'Client', 'route' => 'admin.clients.parseCsvImport'])
+            </div>
+        </div>
+    @endcan
+    <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.clients.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.client.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Client', 'route' => 'admin.clients.parseCsvImport'])
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.client.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Client">
+                        <thead>
+                            <tr>
+                                <th width="10">
+
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.id') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.country') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.company') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.first_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.last_name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.phone') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.skype') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.email') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.website') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.text') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.status') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.vergi_dairesi') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.banka_adi') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.client.fields.banka_iban_no') }}
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <select class="search">
+                                        <option value>{{ trans('global.all') }}</option>
+                                        @foreach($client_statuses as $key => $item)
+                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.client.title_singular') }} {{ trans('global.list') }}
-    </div>
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Client">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.country') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.company') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.first_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.last_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.phone') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.skype') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.email') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.website') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.text') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.status') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.vergi_dairesi') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.banka_adi') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.banka_iban_no') }}
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($client_statuses as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </thead>
-        </table>
-    </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

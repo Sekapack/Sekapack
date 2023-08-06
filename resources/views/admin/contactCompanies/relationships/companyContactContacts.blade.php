@@ -1,4 +1,4 @@
-<div class="m-3">
+<div class="content">
     @can('contact_contact_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
@@ -8,118 +8,125 @@
             </div>
         </div>
     @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.contactContact.title_singular') }} {{ trans('global.list') }}
-        </div>
+    <div class="row">
+        <div class="col-lg-12">
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-companyContactContacts">
-                    <thead>
-                        <tr>
-                            <th width="10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.contactContact.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactContact.fields.id') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactContact.fields.company') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactCompany.fields.company_email') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactContact.fields.contact_first_name') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactContact.fields.contact_last_name') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactContact.fields.contact_phone_1') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactContact.fields.contact_phone_2') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactContact.fields.contact_email') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactContact.fields.contact_skype') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.contactContact.fields.contact_address') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($contactContacts as $key => $contactContact)
-                            <tr data-entry-id="{{ $contactContact->id }}">
-                                <td>
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-companyContactContacts">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-                                </td>
-                                <td>
-                                    {{ $contactContact->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $contactContact->company->company_name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $contactContact->company->company_email ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $contactContact->contact_first_name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $contactContact->contact_last_name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $contactContact->contact_phone_1 ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $contactContact->contact_phone_2 ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $contactContact->contact_email ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $contactContact->contact_skype ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $contactContact->contact_address ?? '' }}
-                                </td>
-                                <td>
-                                    @can('contact_contact_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.contact-contacts.show', $contactContact->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactContact.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactContact.fields.company') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactCompany.fields.company_email') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactContact.fields.contact_first_name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactContact.fields.contact_last_name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactContact.fields.contact_phone_1') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactContact.fields.contact_phone_2') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactContact.fields.contact_email') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactContact.fields.contact_skype') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.contactContact.fields.contact_address') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($contactContacts as $key => $contactContact)
+                                    <tr data-entry-id="{{ $contactContact->id }}">
+                                        <td>
 
-                                    @can('contact_contact_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.contact-contacts.edit', $contactContact->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->company->company_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->company->company_email ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->contact_first_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->contact_last_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->contact_phone_1 ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->contact_phone_2 ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->contact_email ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->contact_skype ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $contactContact->contact_address ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('contact_contact_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.contact-contacts.show', $contactContact->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                                    @can('contact_contact_delete')
-                                        <form action="{{ route('admin.contact-contacts.destroy', $contactContact->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
+                                            @can('contact_contact_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.contact-contacts.edit', $contactContact->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                </td>
+                                            @can('contact_contact_delete')
+                                                <form action="{{ route('admin.contact-contacts.destroy', $contactContact->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
 </div>

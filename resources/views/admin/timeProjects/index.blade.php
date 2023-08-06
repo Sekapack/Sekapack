@@ -1,83 +1,88 @@
 @extends('layouts.admin')
 @section('content')
-@can('time_project_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.time-projects.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.timeProject.title_singular') }}
-            </a>
+<div class="content">
+    @can('time_project_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route('admin.time-projects.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.timeProject.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.timeProject.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.timeProject.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-TimeProject">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-TimeProject">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.timeProject.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.timeProject.fields.name') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($timeProjects as $key => $timeProject)
+                                    <tr data-entry-id="{{ $timeProject->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.timeProject.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.timeProject.fields.name') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($timeProjects as $key => $timeProject)
-                        <tr data-entry-id="{{ $timeProject->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $timeProject->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $timeProject->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('time_project_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.time-projects.show', $timeProject->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $timeProject->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $timeProject->name ?? '' }}
-                            </td>
-                            <td>
-                                @can('time_project_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.time-projects.show', $timeProject->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('time_project_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.time-projects.edit', $timeProject->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('time_project_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.time-projects.edit', $timeProject->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('time_project_delete')
+                                                <form action="{{ route('admin.time-projects.destroy', $timeProject->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('time_project_delete')
-                                    <form action="{{ route('admin.time-projects.destroy', $timeProject->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent
