@@ -1,172 +1,177 @@
 @extends('layouts.admin')
 @section('content')
-@can('crm_customer_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.crm-customers.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.crmCustomer.title_singular') }}
-            </a>
+<div class="content">
+    @can('crm_customer_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route('admin.crm-customers.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.crmCustomer.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.crmCustomer.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.crmCustomer.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-CrmCustomer">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-CrmCustomer">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.musteriler') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.first_name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.last_name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.status') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.phone') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.address') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.email') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.website') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.crmCustomer.fields.description') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($crm_statuses as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($crmCustomers as $key => $crmCustomer)
+                                    <tr data-entry-id="{{ $crmCustomer->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.musteriler') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.first_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.last_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.status') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.phone') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.address') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.email') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.website') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.crmCustomer.fields.description') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <select class="search">
-                                <option value>{{ trans('global.all') }}</option>
-                                @foreach($crm_statuses as $key => $item)
-                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->musteriler ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->first_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->last_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->status->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->phone ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->address ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->email ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->website ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmCustomer->description ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('crm_customer_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.crm-customers.show', $crmCustomer->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
+
+                                            @can('crm_customer_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.crm-customers.edit', $crmCustomer->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
+
+                                            @can('crm_customer_delete')
+                                                <form action="{{ route('admin.crm-customers.destroy', $crmCustomer->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
+
+                                        </td>
+
+                                    </tr>
                                 @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($crmCustomers as $key => $crmCustomer)
-                        <tr data-entry-id="{{ $crmCustomer->id }}">
-                            <td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                            </td>
-                            <td>
-                                {{ $crmCustomer->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->musteriler ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->first_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->last_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->status->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->phone ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->address ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->email ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->website ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmCustomer->description ?? '' }}
-                            </td>
-                            <td>
-                                @can('crm_customer_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.crm-customers.show', $crmCustomer->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
 
-                                @can('crm_customer_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.crm-customers.edit', $crmCustomer->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
 
-                                @can('crm_customer_delete')
-                                    <form action="{{ route('admin.crm-customers.destroy', $crmCustomer->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

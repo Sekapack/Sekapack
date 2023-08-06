@@ -1,104 +1,109 @@
 @extends('layouts.admin')
 @section('content')
-@can('product_category_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.product-categories.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.productCategory.title_singular') }}
-            </a>
+<div class="content">
+    @can('product_category_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route('admin.product-categories.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.productCategory.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.productCategory.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.productCategory.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-ProductCategory">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-ProductCategory">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.productCategory.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.productCategory.fields.name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.productCategory.fields.description') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($productCategories as $key => $productCategory)
+                                    <tr data-entry-id="{{ $productCategory->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.productCategory.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.productCategory.fields.name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.productCategory.fields.description') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($productCategories as $key => $productCategory)
-                        <tr data-entry-id="{{ $productCategory->id }}">
-                            <td>
+                                        </td>
+                                        <td>
+                                            {{ $productCategory->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $productCategory->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $productCategory->description ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('product_category_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.product-categories.show', $productCategory->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
 
-                            </td>
-                            <td>
-                                {{ $productCategory->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $productCategory->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $productCategory->description ?? '' }}
-                            </td>
-                            <td>
-                                @can('product_category_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.product-categories.show', $productCategory->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                            @can('product_category_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.product-categories.edit', $productCategory->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
 
-                                @can('product_category_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.product-categories.edit', $productCategory->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                            @can('product_category_delete')
+                                                <form action="{{ route('admin.product-categories.destroy', $productCategory->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
 
-                                @can('product_category_delete')
-                                    <form action="{{ route('admin.product-categories.destroy', $productCategory->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                        </td>
 
-                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent

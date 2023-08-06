@@ -1,63 +1,68 @@
 @extends('layouts.admin')
 @section('content')
+<div class="content">
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('cruds.crmDocument.title_singular') }}
-    </div>
-
-    <div class="card-body">
-        <form method="POST" action="{{ route("admin.crm-documents.update", [$crmDocument->id]) }}" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="form-group">
-                <label class="required" for="customer_id">{{ trans('cruds.crmDocument.fields.customer') }}</label>
-                <select class="form-control select2 {{ $errors->has('customer') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id" required>
-                    @foreach($customers as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('customer_id') ? old('customer_id') : $crmDocument->customer->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('customer'))
-                    <span class="text-danger">{{ $errors->first('customer') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.crmDocument.fields.customer_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="name">{{ trans('cruds.crmDocument.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $crmDocument->name) }}" required>
-                @if($errors->has('name'))
-                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.crmDocument.fields.name_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="document_file">{{ trans('cruds.crmDocument.fields.document_file') }}</label>
-                <div class="needsclick dropzone {{ $errors->has('document_file') ? 'is-invalid' : '' }}" id="document_file-dropzone">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('global.edit') }} {{ trans('cruds.crmDocument.title_singular') }}
                 </div>
-                @if($errors->has('document_file'))
-                    <span class="text-danger">{{ $errors->first('document_file') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.crmDocument.fields.document_file_helper') }}</span>
+                <div class="panel-body">
+                    <form method="POST" action="{{ route("admin.crm-documents.update", [$crmDocument->id]) }}" enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
+                        <div class="form-group {{ $errors->has('customer') ? 'has-error' : '' }}">
+                            <label class="required" for="customer_id">{{ trans('cruds.crmDocument.fields.customer') }}</label>
+                            <select class="form-control select2" name="customer_id" id="customer_id" required>
+                                @foreach($customers as $id => $entry)
+                                    <option value="{{ $id }}" {{ (old('customer_id') ? old('customer_id') : $crmDocument->customer->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('customer'))
+                                <span class="help-block" role="alert">{{ $errors->first('customer') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.crmDocument.fields.customer_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                            <label class="required" for="name">{{ trans('cruds.crmDocument.fields.name') }}</label>
+                            <input class="form-control" type="text" name="name" id="name" value="{{ old('name', $crmDocument->name) }}" required>
+                            @if($errors->has('name'))
+                                <span class="help-block" role="alert">{{ $errors->first('name') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.crmDocument.fields.name_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('document_file') ? 'has-error' : '' }}">
+                            <label class="required" for="document_file">{{ trans('cruds.crmDocument.fields.document_file') }}</label>
+                            <div class="needsclick dropzone" id="document_file-dropzone">
+                            </div>
+                            @if($errors->has('document_file'))
+                                <span class="help-block" role="alert">{{ $errors->first('document_file') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.crmDocument.fields.document_file_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
+                            <label for="description">{{ trans('cruds.crmDocument.fields.description') }}</label>
+                            <textarea class="form-control" name="description" id="description">{{ old('description', $crmDocument->description) }}</textarea>
+                            @if($errors->has('description'))
+                                <span class="help-block" role="alert">{{ $errors->first('description') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.crmDocument.fields.description_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger" type="submit">
+                                {{ trans('global.save') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="description">{{ trans('cruds.crmDocument.fields.description') }}</label>
-                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $crmDocument->description) }}</textarea>
-                @if($errors->has('description'))
-                    <span class="text-danger">{{ $errors->first('description') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.crmDocument.fields.description_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-danger" type="submit">
-                    {{ trans('global.save') }}
-                </button>
-            </div>
-        </form>
+
+
+
+        </div>
     </div>
 </div>
-
-
-
 @endsection
 
 @section('scripts')

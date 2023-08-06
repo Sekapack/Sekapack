@@ -1,130 +1,135 @@
 @extends('layouts.admin')
 @section('content')
-@can('document_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.documents.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.document.title_singular') }}
-            </a>
+<div class="content">
+    @can('document_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route('admin.documents.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.document.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.document.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('cruds.document.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-Document">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Document">
-                <thead>
-                    <tr>
-                        <th width="10">
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.document.fields.id') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.document.fields.name') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.document.fields.project') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.document.fields.document_file') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.document.fields.description') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($projects as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($documents as $key => $document)
+                                    <tr data-entry-id="{{ $document->id }}">
+                                        <td>
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.document.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.document.fields.name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.document.fields.project') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.document.fields.document_file') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.document.fields.description') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <select class="search">
-                                <option value>{{ trans('global.all') }}</option>
-                                @foreach($projects as $key => $item)
-                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        </td>
+                                        <td>
+                                            {{ $document->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $document->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $document->project->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            @foreach($document->document_file as $key => $media)
+                                                <a href="{{ $media->getUrl() }}" target="_blank">
+                                                    {{ trans('global.view_file') }}
+                                                </a>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            {{ $document->description ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('document_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.documents.show', $document->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
+
+                                            @can('document_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.documents.edit', $document->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
+
+                                            @can('document_delete')
+                                                <form action="{{ route('admin.documents.destroy', $document->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
+
+                                        </td>
+
+                                    </tr>
                                 @endforeach
-                            </select>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($documents as $key => $document)
-                        <tr data-entry-id="{{ $document->id }}">
-                            <td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                            </td>
-                            <td>
-                                {{ $document->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $document->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $document->project->name ?? '' }}
-                            </td>
-                            <td>
-                                @foreach($document->document_file as $key => $media)
-                                    <a href="{{ $media->getUrl() }}" target="_blank">
-                                        {{ trans('global.view_file') }}
-                                    </a>
-                                @endforeach
-                            </td>
-                            <td>
-                                {{ $document->description ?? '' }}
-                            </td>
-                            <td>
-                                @can('document_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.documents.show', $document->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
 
-                                @can('document_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.documents.edit', $document->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
 
-                                @can('document_delete')
-                                    <form action="{{ route('admin.documents.destroy', $document->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
-
-
-
 @endsection
 @section('scripts')
 @parent
